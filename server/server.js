@@ -26,13 +26,13 @@ app.get('/api/students', cors(), async (req, res) => {
   // ];
   // res.json(STUDENTS);
   try {
-    const { rows: students } = await db.query('SELECT * FROM students');
-    res.send(students);
+    const { rows: workplaces } = await db.query('SELECT workplace, imageurl FROM workplaces');
+    res.send(workplaces);
   } catch (e) {
     return res.status(400).json({ e });
   }
 });
-
+/*
 // create the POST request
 app.post('/api/students', cors(), async (req, res) => {
   const newUser = {
@@ -109,9 +109,8 @@ app.post('/api/me', cors(), async (req, res) => {
   console.log(result.rows[0]);
 
   }
-
 });
-
+*/
 
 
 // console.log that your server is up and running

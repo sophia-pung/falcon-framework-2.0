@@ -5,6 +5,7 @@ import Profile from "./components/profile";
 import { useAuth0 } from '@auth0/auth0-react';
 import Loading from "./components/loading";
 import { Route, Routes, Link } from 'react-router-dom';
+import GraphvisPage from './components/graphVis'
 
 function App() {
 
@@ -24,6 +25,7 @@ function App() {
       <Route path="api/me" element={<Profile user={user}/>} />
       </Routes>
       </div>
+      <GraphvisPage/>
     </div>
   );
 }

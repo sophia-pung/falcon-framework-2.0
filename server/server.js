@@ -4,6 +4,12 @@ require('dotenv').config();
 const path = require('path');
 const db = require('./db/db-connection.js');
 
+const {AffindaCredential, AffindaAPI} = require("@affinda/affinda");
+const fs = require("fs");
+
+const credential = new AffindaCredential(process.env.API_KEY)
+const client = new AffindaAPI(credential)
+
 const app = express();
 const REACT_BUILD_DIR = path.join(__dirname, '..', 'client', 'build');
 app.use(express.static(REACT_BUILD_DIR));
@@ -15,7 +21,50 @@ app.use(express.json());
 // creates an endpoint for the route /api
 app.get('/', (req, res) => {
   //res.json({ message: 'Hello from My template ExpressJS' });
+  console.log("Hello I'm here")
   res.sendFile(path.join(REACT_BUILD_DIR, 'index.html'));
+});
+
+app.get("/resume", (req, res) => {
+  // var myHeaders = new Headers();
+  // myHeaders.append("apikey", "QaOJEnB14qqPCkYDrIgN5DnbdLOoMyJ5");
+  const url = req.query.url;
+  console.log("query parameters", req.query.url);
+  res.send("test")
+  // var requestOptions = {
+  //   method: 'GET',
+  //   redirect: 'follow',
+  //   headers: myHeaders
+  // };
+  // fetch(`https://api.apilayer.com/resume_parser/url?url=${url}`, requestOptions)
+  // .then(response => response.text())
+  /* THIS IS WHAT I'M USING
+  client.createResume({url}).then((result) => {
+    console.log("Returned data:");
+    console.dir(result)
+    res.send(result)
+}).catch((err) => {
+    console.log("An error occurred:");
+    console.error(err);
+})
+*/
+// });
+//   .then(result => res.send(result))
+//   .catch(error => console.log('error', error));
+
+
+  // look at lines 32 - 36 like async await
+  // .then((valueFromThePromise) => {
+    // is going to return another promise
+    // will return the value of whatever YOU are returning in here
+    // return response.text()
+     // } )
+    // .then(result => console.log(result)) -> we are returning undefined because we have no return value 
+    // and console.log returns undefined by default
+
+    // 
+ 
+
 });
 
 // create the get request

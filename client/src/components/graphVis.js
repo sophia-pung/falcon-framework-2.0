@@ -103,7 +103,7 @@ const GraphvisPage = () => {
   //uuidv4 generates a unique string everytime the react component is rendered
   const key = uuidv4();
   return (
-    <div>c
+    <div>
       <Graph key={key} graph={graph} options={options} events={events} style={{ height: "640px" }} />
     </div>
   );

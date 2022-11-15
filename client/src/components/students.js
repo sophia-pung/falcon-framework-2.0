@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import Form from "./form";
+//import GraphVis > GraphVis component will have the layout to structure the data... the parameter in the instance of GraphVis in student.js will be the json object of data
 
 const testData = {
   "data": {
@@ -2418,6 +2419,28 @@ const testData = {
   }
 };
 
+function getWorkplaces(data) {
+    let education = data.data.education;
+    let finalData = [];
+    for (let i=0; i< education.length; i++) {
+        //
+        let educationData = {workplace: "", category: "education", imageurl: ""};
+        educationData.workplace = education[i].organization;
+        //other function to fetch image url > save to backend
+        finalData.push(educationData);
+    }
+    let workExperience = data.data.workExperience;
+    for (let i=0; i<workExperience.length; i++){
+        let workplaceData = {workplace: "", category: "job", imageurl: ""};
+        workplaceData.workplace = workExperience[i].organization;
+        //other function to fetch image url > save to backend
+        finalData.push(workplaceData);
+    }
+    console.log("finalData", finalData)
+}
+getWorkplaces(testData);
+//return an array containing an object with keys 
+
 function Students(props) {
   let user = props.user;
   // this is my original state with an array of students
@@ -2438,6 +2461,20 @@ function Students(props) {
         console.log(workplaces[0].workplace);
       });
   };
+
+  const images = {};
+
+  // const loadImages = () => {
+  //   // A function to fetch the list of workpalces so that we can fetch the images
+  //   fetch("/api/images", {
+  //     method: "GET",
+  //   })
+  //     .then((response) => response.json())
+  //     .then((images) => {
+  //       const images.map
+  //       console.log(workplaces[0].workplace);
+  //     });
+  // };
 
   useEffect(() => {
     loadStudents();

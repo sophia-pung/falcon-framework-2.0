@@ -67,6 +67,16 @@ app.get("/resume", (req, res) => {
 
 });
 
+//pull workplace name, call the image API and then put the image back into the workplaces table
+app.get('/api/images', cors(), async (req, res) => {
+  try {
+    const { rows: images } = await db.query('SELECT workplace FROM workplaces');
+    res.send(images);
+  } catch (e) {
+    return res.status(400).json({ e });
+  }
+});
+
 // create the get request
 app.get('/api/students', cors(), async (req, res) => {
   // const STUDENTS = [

@@ -5,7 +5,9 @@ import Profile from "./components/profile";
 import { useAuth0 } from '@auth0/auth0-react';
 import Loading from "./components/loading";
 import { Route, Routes, Link } from 'react-router-dom';
-import GraphvisPage from './components/graphVis'
+import GraphvisPage from './components/graphVis';
+import Home from "./components/home";
+import "./fonts/GlowBetter-jEeLO\ 2.ttf";
 
 function App() {
 
@@ -16,15 +18,8 @@ function App() {
   }
 
   return (
-    <div id="app" className="d-flex flex-column h-100">
-      <NavBar />
-      <div className="container flex-grow-1">
-      {!user ? <span>Hello from Techtonica</span> : <span>Hello <Link to="api/me">{user.name}</Link></span> }
-      <Routes>
-      <Route path="/" element={<Students user={user}/>} />
-      <Route path="api/me" element={<Profile user={user}/>} />
-      </Routes>
-      </div>
+    <div>
+      <Home />
       <GraphvisPage/>
     </div>
   );

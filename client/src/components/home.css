@@ -7,26 +7,43 @@ body {
   height: 100%;
   font-size: 15px;
   /* em/rem units */
+  overflow: hidden;
 }
 
 .top {
   display: flex;
   flex-direction: row;
-  height: 50px;
+  height: 60px;
   background-color: #ffffff;
   border-bottom: 1px solid white;
   border-bottom-color: rgba(0,0,0,0.1);
+}
+
+.auth-button {
+    margin-right: 50px;
+    /* display: flex;
+    flex-direction: ; */
+}
+
+.timeline .profile {
+    margin-left: 2px;
 }
 
 .icon {
     margin-left: 40px;
     margin-right: auto;
     margin-top: 10px;
+    
+}
+
+button {
+    border-radius: 1px;
+    border: 2px solid black;
 }
 
 .title-text {
     color: #000000;
-    position: relative;
+    position: absolute;
     font-family: "falcon";
 }
 
@@ -36,8 +53,12 @@ body {
     margin-top: 10px;
 }
 
-.button {
-    align-self: right;
+.login-index {
+    z-index: 2;
+}
+
+.background {
+    z-index: 3;
 }
 
 .title-text::after {
@@ -45,13 +66,10 @@ body {
     display: block;
     width: 0;
     height: 1px;
-
     background-color: #000000;
-
     position: absolute;
     top: 50%;
     left: -10px;
-
     transition: width 600ms ease-in-out;
 }
 

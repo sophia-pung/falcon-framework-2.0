@@ -141,7 +141,7 @@ app.delete('/api/students/:studentId', cors(), async (req, res) =>{
   res.status(200).end();
 
 });
-
+*/
 
 // create the POST request for a new user
 // CREATE TABLE users (
@@ -151,14 +151,15 @@ app.delete('/api/students/:studentId', cors(), async (req, res) =>{
 //     email varchar(255), 
 //     sub varchar(255));
 app.post('/api/me', cors(), async (req, res) => {
+  console.log("I've hit this route")
   const newUser = {
-    lastname: req.body.family_name,
-    firstname: req.body.given_name,
-    email: req.body.email,
-    sub: req.body.sub
-
+    lastname: req.body.family_name || "",
+    firstname: req.body.given_name || "",
+    email: req.body.email || "",
+    linkedIn: "",
+    
   }
-  //console.log(newUser);
+  console.log(newUser);
 
   const queryEmail = 'SELECT * FROM users WHERE email=$1 LIMIT 1';
   const valuesEmail = [newUser.email]
@@ -166,14 +167,15 @@ app.post('/api/me', cors(), async (req, res) => {
   if(resultsEmail.rows[0]){
     console.log(`Thank you ${resultsEmail.rows[0].firstname} for comming back`)
   } else{
-  const query = 'INSERT INTO users(lastname, firstname, email, sub) VALUES($1, $2, $3, $4) RETURNING *'
-  const values = [newUser.lastname, newUser.firstname, newUser.email, newUser.sub]
+  const query = 'INSERT INTO users(last_name, first_name, email, linkedin) VALUES($1, $2, $3, $4) RETURNING *'
+  const values = [newUser.lastname, newUser.firstname, newUser.email, newUser.linkedIn]
   const result = await db.query(query, values);
   console.log(result.rows[0]);
 
   }
+  res.send(newUser);
 });
-*/
+
 
 
 // console.log that your server is up and running

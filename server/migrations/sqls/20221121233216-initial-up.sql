@@ -25,3 +25,5 @@ CREATE TABLE workplaces (
 );
 
 INSERT INTO workplaces (workplace_id, workplace, category, imageurl) VALUES (1, 'Armstrong High School', 'high school', 'https://resources.finalsite.net/images/f_auto,q_auto,t_image_size_1/v1587726922/rdaleorg/ekdtpkytkyr90pidagnp/ArmstrongHS-C.png');
+
+SELECT pg_catalog.setval('workplaces_workplace_id_seq', 1, true);

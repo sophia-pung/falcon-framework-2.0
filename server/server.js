@@ -220,7 +220,6 @@ app.post("/api/workplaces", cors(), async (req, res) => {
       console.log("workplaces", workplaceList[i]);
       console.log("name", workplaceList[i].workplace);
       if (workplaceList[i].workplace != null) {
-        try {
           const data = await getImageData({
             q: workplaceList[i].workplace,
             tbm: "isch",
@@ -228,12 +227,13 @@ app.post("/api/workplaces", cors(), async (req, res) => {
           });
           console.log("TEST", data["images_results"][0].thumbnail);
           workplaceList[i].imageurl = data["images_results"][0].thumbnail;
+          try {
           const query =
             "INSERT INTO workplaces(workplace, category, imageurl) VALUES($1, $2, $3) RETURNING *";
           const values = [
-            workplaceList.workplace[i],
-            workplaceList.category[i],
-            workplaceList.imageurl[i],
+            workplaceList[i].workplace,
+            workplaceList[i].category,
+            workplaceList[i].imageurl,
           ];
           const result = await db.query(query, values);
           console.log("result", result);

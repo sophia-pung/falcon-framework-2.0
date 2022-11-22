@@ -74,15 +74,19 @@ const GraphvisPage = (resumeData) => {
         { id: 1, label: "", color: "#e04141", shape: 'image',
         image: 'https://resources.finalsite.net/images/f_auto,q_auto,t_image_size_1/v1587726922/rdaleorg/ekdtpkytkyr90pidagnp/ArmstrongHS-C.png'},
         { id: 2, label: "", shape: 'image', image: 'https://coursereport-s3-production.global.ssl.fastly.net/uploads/school/logo/506/original/techtonica-image-logo.png'},
-        { id: 3, label: "Node 3", color: "#e0df41" },
-        { id: 4, label: "Node 4", color: "#7be041" },
-        { id: 5, label: "Node 5", color: "#41e0c9" }
+        { id: 3, label: "", shape: 'image', image: "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ed/UCLA_Bruins_script.svg/1200px-UCLA_Bruins_script.svg.png" },
+        { id: 4, label: "", shape: "image", image: "https://www.videogameschronicle.com/files/2019/03/1920px-Sony_Interactive_Entertainment_logo_since_20160401.svg_.png" },
+        { id: 5, label: "", shape: 'image', image: "https://d1cy3c0knche0o.cloudfront.net/static/logo-square.png?v=2" },
+        { id: 6, label: "", shape: 'image', image: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6a/University_of_Minnesota_Logo.svg/2560px-University_of_Minnesota_Logo.svg.png" },
+        { id: 7, label: "", shape: 'image', image: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/1200px-Google_%22G%22_Logo.svg.png" }
       ],
       edges: [
         { from: 1, to: 2 },
         { from: 1, to: 3 },
         { from: 2, to: 4 },
-        { from: 2, to: 5 }
+        { from: 2, to: 5 },
+        {from: 1, to: 6},
+        {from: 6, to: 7}
       ]
     },
     events: {

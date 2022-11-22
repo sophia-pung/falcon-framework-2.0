@@ -1,17 +1,37 @@
-const express = require('express');
-const cors = require('cors');
-require('dotenv').config();
-const path = require('path');
-const db = require('./db/db-connection.js');
+const express = require("express");
+const cors = require("cors");
+require("dotenv").config();
+const path = require("path");
+const db = require("./db/db-connection.js");
 
-const {AffindaCredential, AffindaAPI} = require("@affinda/affinda");
+const SerpApi = require("google-search-results-nodejs");
+const search = new SerpApi.GoogleSearch(process.env.REACT_APP_SECRET_API_KEY);
+const params = {
+  q: "Orange",
+  tbm: "isch",
+  ijn: "0",
+};
+const util = require('util')
+
+function getJson(parameter, resolve, reject) {  
+  try {
+    search.json(parameter, resolve)
+  } catch (e) {
+    reject(e)
+  }
+}
+
+const getImageData = util.promisify(getJson)[util.promisify.custom];
+
+const { AffindaCredential, AffindaAPI } = require("@affinda/affinda");
 const fs = require("fs");
 
-const credential = new AffindaCredential(process.env.API_KEY)
-const client = new AffindaAPI(credential)
+const credential = new AffindaCredential(process.env.API_KEY);
+const client = new AffindaAPI(credential);
 
 const app = express();
-const REACT_BUILD_DIR = path.join(__dirname, '..', 'client', 'build');
+const REACT_BUILD_DIR = path.join(__dirname, "..", "client", "build");
+
 app.use(express.static(REACT_BUILD_DIR));
 
 const PORT = process.env.PORT || 8080;
@@ -19,10 +39,10 @@ app.use(cors());
 app.use(express.json());
 
 // creates an endpoint for the route /api
-app.get('/', (req, res) => {
+app.get("/", (req, res) => {
   //res.json({ message: 'Hello from My template ExpressJS' });
-  console.log("Hello I'm here")
-  res.sendFile(path.join(REACT_BUILD_DIR, 'index.html'));
+  console.log("Hello I'm here");
+  res.sendFile(path.join(REACT_BUILD_DIR, "index.html"));
 });
 
 app.get("/resume", (req, res) => {
@@ -30,7 +50,7 @@ app.get("/resume", (req, res) => {
   // myHeaders.append("apikey", "QaOJEnB14qqPCkYDrIgN5DnbdLOoMyJ5");
   const url = req.query.url;
   console.log("query parameters", req.query.url);
-  res.send("test")
+  res.send("test");
   // var requestOptions = {
   //   method: 'GET',
   //   redirect: 'follow',
@@ -48,29 +68,26 @@ app.get("/resume", (req, res) => {
     console.error(err);
 })
 */
-// });
-//   .then(result => res.send(result))
-//   .catch(error => console.log('error', error));
-
+  // });
+  //   .then(result => res.send(result))
+  //   .catch(error => console.log('error', error));
 
   // look at lines 32 - 36 like async await
   // .then((valueFromThePromise) => {
-    // is going to return another promise
-    // will return the value of whatever YOU are returning in here
-    // return response.text()
-     // } )
-    // .then(result => console.log(result)) -> we are returning undefined because we have no return value 
-    // and console.log returns undefined by default
+  // is going to return another promise
+  // will return the value of whatever YOU are returning in here
+  // return response.text()
+  // } )
+  // .then(result => console.log(result)) -> we are returning undefined because we have no return value
+  // and console.log returns undefined by default
 
-    // 
- 
-
+  //
 });
 
 //pull workplace name, call the image API and then put the image back into the workplaces table
-app.get('/api/images', cors(), async (req, res) => {
+app.get("/api/images", cors(), async (req, res) => {
   try {
-    const { rows: images } = await db.query('SELECT workplace FROM workplaces');
+    const { rows: images } = await db.query("SELECT workplace FROM workplaces");
     res.send(images);
   } catch (e) {
     return res.status(400).json({ e });
@@ -78,7 +95,7 @@ app.get('/api/images', cors(), async (req, res) => {
 });
 
 // create the get request
-app.get('/api/students', cors(), async (req, res) => {
+app.get("/api/students", cors(), async (req, res) => {
   // const STUDENTS = [
 
   //     { id: 1, firstName: 'Lisa', lastName: 'Lee' },
@@ -89,7 +106,9 @@ app.get('/api/students', cors(), async (req, res) => {
   // ];
   // res.json(STUDENTS);
   try {
-    const { rows: workplaces } = await db.query('SELECT workplace, imageurl FROM workplaces');
+    const { rows: workplaces } = await db.query(
+      "SELECT workplace, imageurl FROM workplaces"
+    );
     res.send(workplaces);
   } catch (e) {
     return res.status(400).json({ e });
@@ -148,37 +167,73 @@ app.delete('/api/students/:studentId', cors(), async (req, res) =>{
 // 	ID SERIAL PRIMARY KEY,
 // 	lastname varchar(255),
 // 	firstname varchar(255),
-//     email varchar(255), 
+//     email varchar(255),
 //     sub varchar(255));
-app.post('/api/me', cors(), async (req, res) => {
-  console.log("I've hit this route")
+app.post("/api/me", cors(), async (req, res) => {
+  console.log("I've hit this route");
   const newUser = {
     lastname: req.body.family_name || "",
     firstname: req.body.given_name || "",
     email: req.body.email || "",
     linkedIn: "",
-    
-  }
+  };
   console.log(newUser);
 
-  const queryEmail = 'SELECT * FROM users WHERE email=$1 LIMIT 1';
-  const valuesEmail = [newUser.email]
+  const queryEmail = "SELECT * FROM users WHERE email=$1 LIMIT 1";
+  const valuesEmail = [newUser.email];
   const resultsEmail = await db.query(queryEmail, valuesEmail);
-  if(resultsEmail.rows[0]){
-    console.log(`Thank you ${resultsEmail.rows[0].firstname} for comming back`)
-  } else{
-  const query = 'INSERT INTO users(last_name, first_name, email, linkedin) VALUES($1, $2, $3, $4) RETURNING *'
-  const values = [newUser.lastname, newUser.firstname, newUser.email, newUser.linkedIn]
-  const result = await db.query(query, values);
-  console.log(result.rows[0]);
-
+  if (resultsEmail.rows[0]) {
+    console.log(`Thank you ${resultsEmail.rows[0].firstname} for comming back`);
+  } else {
+    const query =
+      "INSERT INTO users(last_name, first_name, email, linkedin) VALUES($1, $2, $3, $4) RETURNING *";
+    const values = [
+      newUser.lastname,
+      newUser.firstname,
+      newUser.email,
+      newUser.linkedIn,
+    ];
+    const result = await db.query(query, values);
+    console.log(result.rows[0]);
   }
   res.send(newUser);
 });
-
-
 
 // console.log that your server is up and running
 app.listen(PORT, () => {
   console.log(`Server listening on ${PORT}`);
 });
+
+console.log("API_KEY", process.env.REACT_APP_SECRET_API_KEY)
+
+app.post("/api/workplaces", cors(), async (req, res) => {
+  console.log("I'VE HIT THE REQUEST")
+  // Show result as JSON
+  const data = await getImageData({ q: YOUR_WORKPLACE_NAME_HERE, tbm: 'isch', ijn: "0" });
+  console.log(data["images_results"]);
+  console.log(req.body);
+  console.log("END");
+  res.send("test");
+  // const newWorkplace = {
+  //   workplace: req.body.family_name || "",
+  //   firstname: req.body.given_name || "",
+  //   email: req.body.email || "",
+  //   linkedIn: "",
+  // }
+});
+
+// const util = require('util')
+
+// function getJson(parameter, resolve, reject) {  
+//   try {
+//     search.json(parameter, resolve)
+//   } catch (e) {
+//     reject(e)
+//   }
+// }
+
+// const getImageData = util.promisify(getJson)[util.promisify.custom];
+
+// // inside of your POST route instead of `search.json(params, callback)`
+// const data = await getImageData({ q: YOUR_WORKPLACE_NAME_HERE, tbm: 'isch', ijn: "0");
+// console.log(data["images_results"]);

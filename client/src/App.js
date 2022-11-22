@@ -26,6 +26,7 @@ function App() {
 
   return (
     <div>
+      <Students />
     <div className="body">
       <nav>
         <div className="nav-container">

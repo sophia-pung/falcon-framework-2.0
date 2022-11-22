@@ -4,6 +4,7 @@ import timeline from "../icons/timeline.svg";
 import profile from "../icons/profile.svg";
 import { React, useState, useEffect } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
+import GraphvisPage from "./graphVis";
 import AuthenticationButton from "./authentication-button";
 
 const saveUser = (user) => {
@@ -27,7 +28,7 @@ function NetworkPage() {
         }
       })
   return (
-    <h1>test</h1>
+      <GraphvisPage />
   //   <div className="body">
   //     <nav>
   //       <div className="nav-container">

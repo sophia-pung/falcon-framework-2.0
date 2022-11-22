@@ -164,6 +164,7 @@ ALTER TABLE ONLY public.workplaces ALTER COLUMN workplace_id SET DEFAULT nextval
 --
 
 INSERT INTO public.users (user_id, first_name, last_name, email, linkedin, password) VALUES (1, 'sophia', 'pung', 'sophiagracepung@gmail.com', 'linkedin.com/in/sophiapung/', NULL);
+INSERT INTO public.users (user_id, first_name, last_name, email, linkedin, password) VALUES (6, 'sophia the phirst', '', 'sophiapung22@gmail.com', '', NULL);
 
 
 --
@@ -184,7 +185,7 @@ SELECT pg_catalog.setval('public.userdata_userdata_id_seq', 1, false);
 -- Name: users_user_id_seq; Type: SEQUENCE SET; Schema: public; Owner: sophiapung
 --
 
-SELECT pg_catalog.setval('public.users_user_id_seq', 1, true);
+SELECT pg_catalog.setval('public.users_user_id_seq', 6, true);
 
 
 --

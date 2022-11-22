@@ -1,6 +1,7 @@
 import "./home.css";
 import network from "../icons/network.svg";
 import timeline from "../icons/timeline.svg";
+import "./timeline.css";
 import profile from "../icons/profile.svg";
 import { React, useState, useEffect } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
@@ -16,18 +17,23 @@ import AuthenticationButton from "./authentication-button";
 // }
 
 function Timeline() {
-    // const { loginWithRedirect } = useAuth0();
-    // const [isLoggedIn, setIsLoggedIn] = useState(false);
+  // const { loginWithRedirect } = useAuth0();
+  // const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-    //   const onSubmit = (()=>{
-    //     if(!isLoggedIn){
-    //         console.log("Test")
-    //         loginWithRedirect();
-    //         setIsLoggedIn(true);
-    //     }
-    //   })
+  //   const onSubmit = (()=>{
+  //     if(!isLoggedIn){
+  //         console.log("Test")
+  //         loginWithRedirect();
+  //         setIsLoggedIn(true);
+  //     }
+  //   })
   return (
-    <h1>timeline</h1>
+    <div class="object">
+      <div class="object-rope"></div>
+      <div class="object-shape">
+        Coming <span class="soon">Soon</span>
+      </div>
+    </div>
   );
 }
 

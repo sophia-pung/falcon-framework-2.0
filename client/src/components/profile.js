@@ -1,9 +1,15 @@
-import React from 'react';
+import React from "react";
+import "./profile.css";
 
 const Profile = () => {
-
   return (
-    <h1>profile</h1>
-)};
+    <div class="object">
+      <div class="object-rope"></div>
+      <div class="object-shape">
+        Coming <span class="soon">Soon</span>
+      </div>
+    </div>
+  );
+};
 
 export default Profile;

@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { stringify } from "uuid";
 import Form from "./form";
 //import GraphVis > GraphVis component will have the layout to structure the data... the parameter in the instance of GraphVis in student.js will be the json object of data
 
@@ -2436,9 +2437,131 @@ function getWorkplaces(data) {
         //other function to fetch image url > save to backend
         finalData.push(workplaceData);
     }
-    console.log("finalData", finalData)
+    return finalData
 }
-getWorkplaces(testData);
+let testWorkplaces = [
+    {
+        "workplace": "University of La Verne",
+        "category": "education",
+        "imageurl": ""
+    },
+    {
+        "workplace": "University of La Verne",
+        "category": "education",
+        "imageurl": ""
+    },
+    {
+        "workplace": "University of La Verne",
+        "category": "education",
+        "imageurl": ""
+    },
+    {
+        "workplace": "Mt. San Antonio Community College",
+        "category": "education",
+        "imageurl": ""
+    },
+    {
+        "workplace": "University of La Verne",
+        "category": "education",
+        "imageurl": ""
+    },
+    {
+        "workplace": "University of La Verne",
+        "category": "education",
+        "imageurl": ""
+    },
+    {
+        "workplace": "University of La Verne",
+        "category": "education",
+        "imageurl": ""
+    },
+    {
+        "workplace": "University of Colorado",
+        "category": "education",
+        "imageurl": ""
+    },
+    {
+        "workplace": "University of La Verne",
+        "category": "education",
+        "imageurl": ""
+    },
+    {
+        "workplace": "T.Y.K.E.S. Resource Center",
+        "category": "job",
+        "imageurl": ""
+    },
+    {
+        "workplace": "Pals Program, Human Services Department",
+        "category": "job",
+        "imageurl": ""
+    },
+    {
+        "workplace": "University of La Verne, Career Services",
+        "category": "job",
+        "imageurl": ""
+    },
+    {
+        "workplace": null,
+        "category": "job",
+        "imageurl": ""
+    },
+    {
+        "workplace": "San Dimas High School",
+        "category": "job",
+        "imageurl": ""
+    },
+    {
+        "workplace": "24 Hour Fitness",
+        "category": "job",
+        "imageurl": ""
+    },
+    {
+        "workplace": "Starbucks",
+        "category": "job",
+        "imageurl": ""
+    },
+    {
+        "workplace": "University of La Verne, Office of Information Technology",
+        "category": "job",
+        "imageurl": ""
+    },
+    {
+        "workplace": "LeoFM (FM 107.9)",
+        "category": "job",
+        "imageurl": ""
+    },
+    {
+        "workplace": "KROQ (FM 106.7)",
+        "category": "job",
+        "imageurl": ""
+    },
+    {
+        "workplace": "LeoFM (FM 107.9)",
+        "category": "job",
+        "imageurl": ""
+    },
+    {
+        "workplace": "LeoFM (FM 107.9)",
+        "category": "job",
+        "imageurl": ""
+    },
+    {
+        "workplace": "SMITH, ROGERS AND ANDERSON",
+        "category": "job",
+        "imageurl": ""
+    }
+];
+
+function sendWorkplaces (workplaces) {
+    console.log("sendWorkpalces function was called", workplaces)
+    return fetch("http://localhost:8080/api/workplaces", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(workplaces),
+    })
+}
+
+let workplaceData = getWorkplaces(testData);
 //return an array containing an object with keys 
 
 function Students(props) {
@@ -2546,6 +2669,9 @@ function Students(props) {
       <h2> List of Workplaces </h2>
       <button onClick={onSumbit}>
         Resume Parser Test
+      </button>
+      <button onClick={() => sendWorkplaces(workplaceData)}>
+        Workplace Table Update Test
       </button>
       <ul>
         {students.map((student) => {

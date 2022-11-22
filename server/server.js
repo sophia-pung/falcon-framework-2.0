@@ -13,15 +13,23 @@ const params = {
 };
 const util = require('util')
 
-function getJson(parameter, resolve, reject) {  
-  try {
-    search.json(parameter, resolve)
-  } catch (e) {
-    reject(e)
-  }
-}
+// function getJson(parameter, resolve, reject) {  
+//   try {
+//     search.json(parameter, resolve)
+//   } catch (e) {
+//     reject(e)
+//   }
+// }
 
-const getImageData = util.promisify(getJson)[util.promisify.custom];
+const getImageData = (params) => {
+  return new Promise((resolve, reject) => {
+    try {
+      search.json(params, resolve)
+    } catch (e) {
+      reject(e)
+    }
+  })
+}
 
 const { AffindaCredential, AffindaAPI } = require("@affinda/affinda");
 const fs = require("fs");
@@ -207,10 +215,32 @@ app.listen(PORT, () => {
 console.log("API_KEY", process.env.REACT_APP_SECRET_API_KEY)
 
 app.post("/api/workplaces", cors(), async (req, res) => {
+  async function ImageSearch (workplaceList) {
+    for (let i=0; i<workplaceList.length; i++ ) {
+      console.log("workplaces", workplaceList[i])
+      console.log("name", workplaceList[i].workplace)
+      if (workplaceList[i].workplace != null) {
+      try {const data = await getImageData({ q: workplaceList[i].workplace, tbm: 'isch', ijn: "0" });
+      console.log("TEST", data["images_results"][0].thumbnail);
+      workplaceList[i].imageurl = data["images_results"][0].thumbnail;
+      const query =
+        "INSERT INTO workplaces(workplace, category, imageurl) VALUES($1, $2, $3) RETURNING *";
+      const values = [
+        workplaceList.workplace,
+        workplaceList.category,
+        workplaceList.imageurl
+      ];
+    const result = await db.query(query, values);
+    console.log(result.rows[0]);}
+      catch (e) {console.log("E", e)}
+      }
+      console.log("finalList", workplaceList)
+    }
+  }
+  
+  await ImageSearch(req.body);
   console.log("I'VE HIT THE REQUEST")
   // Show result as JSON
-  const data = await getImageData({ q: YOUR_WORKPLACE_NAME_HERE, tbm: 'isch', ijn: "0" });
-  console.log(data["images_results"]);
   console.log(req.body);
   console.log("END");
   res.send("test");

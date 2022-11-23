@@ -55,10 +55,10 @@ get from point A to point B, by seeing the paths that others took. The project p
 
 ### Built With
 
-* [![Next]
+* [![NodeJS]
 * [![React]
 * [![PostgreSQL]
-* [![Express]
+* [![ExpressJS]
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 

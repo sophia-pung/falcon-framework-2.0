@@ -1,19 +1,6 @@
 import React from "react";
 import "./profile.css";
 
-<<<<<<< HEAD
-const Profile = () => {
-=======
-<<<<<<< Updated upstream
->>>>>>> 96394bd (updating the project README.md)
-  return (
-    <div class="object">
-      <div class="object-rope"></div>
-      <div class="object-shape">
-        Coming <span class="soon">Soon</span>
-      </div>
-    </div>
-=======
 const Profile = () => {
   // var isAdvancedUpload = function() {
   //   var div = document.createElement('div');
@@ -144,7 +131,6 @@ const Profile = () => {
 	</div>
 </form>
 </div>
->>>>>>> Stashed changes
   );
 };
 

@@ -2666,13 +2666,13 @@ function Students(props) {
 
   return (
     <div className="students">
-      <h2> List of Workplaces </h2>
+      {/* <h2> List of Workplaces </h2>
       <button onClick={onSumbit}>
         Resume Parser Test
       </button>
       <button onClick={() => sendWorkplaces(workplaceData)}>
         Workplace Table Update Test
-      </button>
+      </button> */}
       <ul>
         {students.map((student) => {
           if (student.id === editStudentId) {
@@ -2706,7 +2706,7 @@ function Students(props) {
           }
         })}
       </ul>
-      {!user ? (
+      {/* {!user ? (
         <h4>Please signup to see full network tree. </h4>
       ) : (
         <ul>
@@ -2714,7 +2714,7 @@ function Students(props) {
             return workplace.workplace;
           })}
         </ul>
-      )}
+      )} */}
     </div>
   );
 }

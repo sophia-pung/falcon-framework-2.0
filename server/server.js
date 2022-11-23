@@ -33,7 +33,6 @@ const getImageData = (params) => {
 
 const { AffindaCredential, AffindaAPI } = require("@affinda/affinda");
 const fs = require("fs");
-
 const credential = new AffindaCredential(process.env.API_KEY);
 const client = new AffindaAPI(credential);
 
@@ -122,12 +121,7 @@ app.get("/api/students", cors(), async (req, res) => {
     return res.status(400).json({ e });
   }
 });
-<<<<<<< HEAD
-/*
-=======
 
-<<<<<<< Updated upstream
-=======
 app.get("/db/nodes", cors(), async (req, res) => {
   try {
     const { rows: workplaces } = await db.query("SELECT * FROM workplaces");
@@ -267,7 +261,6 @@ app.post("/api/workplaces", cors(), async (req, res) => {
   // Show result as JSON
   console.log(req.body);
   console.log("END");
-  res.send("test");
   // const newWorkplace = {
   //   workplace: req.body.family_name || "",
   //   firstname: req.body.given_name || "",

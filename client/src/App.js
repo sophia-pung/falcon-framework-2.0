@@ -25,19 +25,6 @@ function App() {
   }
 
   return (
-<<<<<<< HEAD
-    <div>
-      <Students />
-=======
-<<<<<<< Updated upstream
-    <div id="app" className="d-flex flex-column h-100">
-      <NavBar />
-      <div className="container flex-grow-1">
-      {!user ? <span>Hello from Techtonica</span> : <span>Hello <Link to="api/me">{user.name}</Link></span> }
-=======
-    <div>
-      {/* <Students /> */}
->>>>>>> 96394bd (updating the project README.md)
     <div className="body">
       <nav>
         <div className="nav-container">
@@ -63,17 +50,11 @@ function App() {
       </nav>
       <div className="background">
         {/* <BackgroundGrid /> */}
-<<<<<<< HEAD
-=======
-      </div>
-    </div>
-    <div>
->>>>>>> Stashed changes
+      <div>
       <Routes>
       <Route path="/" element={<Students user={user}/>} />
       <Route path="api/me" element={<Profile user={user}/>} />
       </Routes>
->>>>>>> 96394bd (updating the project README.md)
       </div>
     </div>
     <div>

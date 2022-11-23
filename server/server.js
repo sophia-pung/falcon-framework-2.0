@@ -122,7 +122,23 @@ app.get("/api/students", cors(), async (req, res) => {
     return res.status(400).json({ e });
   }
 });
+<<<<<<< HEAD
 /*
+=======
+
+<<<<<<< Updated upstream
+=======
+app.get("/db/nodes", cors(), async (req, res) => {
+  try {
+    const { rows: workplaces } = await db.query("SELECT * FROM workplaces");
+    res.send(workplaces);
+  } catch (e) {
+    return res.status(400).json({ e });
+  }
+});
+/*
+>>>>>>> Stashed changes
+>>>>>>> 96394bd (updating the project README.md)
 // create the POST request
 app.post('/api/students', cors(), async (req, res) => {
   const newUser = {

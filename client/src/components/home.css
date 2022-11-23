@@ -1,0 +1,87 @@
+body {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  height: 100%;
+  font-size: 15px;
+  /* em/rem units */
+  overflow: hidden;
+}
+
+.top {
+  display: flex;
+  flex-direction: row;
+  height: 60px;
+  background-color: #ffffff;
+  border-bottom: 1px solid white;
+  border-bottom-color: rgba(0,0,0,0.1);
+}
+
+.auth-button {
+    margin-right: 50px;
+    /* display: flex;
+    flex-direction: ; */
+}
+
+.timeline .profile {
+    margin-left: 2px;
+}
+
+.icon {
+    margin-left: 40px;
+    margin-right: auto;
+    margin-top: 10px;
+    
+}
+
+button {
+    border-radius: 1px;
+    border: 2px solid black;
+}
+
+.title-text {
+    color: #000000;
+    position: absolute;
+    font-family: "falcon";
+}
+
+.add-timeline {
+    margin-left: auto;
+    margin-right: 40px;
+    margin-top: 10px;
+}
+
+.login-index {
+    z-index: 2;
+}
+
+.background {
+    z-index: 3;
+}
+
+.title-text::after {
+    content: '';
+    display: block;
+    width: 0;
+    height: 1px;
+    background-color: #000000;
+    position: absolute;
+    top: 50%;
+    left: -10px;
+    transition: width 600ms ease-in-out;
+}
+
+.title-text:hover::after {
+    width: 105%;
+}
+
+.nav-container {
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+    align-items: center;
+    align-content: center;
+    justify-content: center;
+}

@@ -16,7 +16,7 @@ const saveUser = (user) => {
     })
 }
 
-function NetworkPage() {
+function NetworkPage({updateGraphPage, setUpdateGraphPage}) {
     const { loginWithRedirect } = useAuth0();
     const [isLoggedIn, setIsLoggedIn] = useState(false);
 
@@ -28,7 +28,7 @@ function NetworkPage() {
         }
       })
   return (
-      <GraphvisPage />
+      <GraphvisPage updateGraphPage={updateGraphPage} setUpdateGraphPage={setUpdateGraphPage}/>
   //   <div className="body">
   //     <nav>
   //       <div className="nav-container">

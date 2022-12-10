@@ -16,16 +16,19 @@ import network from "./icons/network.svg";
 import timeline from "./icons/timeline.svg";
 import profile from "./icons/profile.svg";
 import AuthenticationButton from "./components/authentication-button";
+import { useState } from 'react';
 
 function App() {
   const { isLoading } = useAuth0();
   const { user } = useAuth0();
+  const [updateGraphPage, setUpdateGraphPage] = useState(false);
   if (isLoading) {
     return <Loading />;
   }
 
   return (
     <div className="body">
+      {/* <Students /> */}
       <nav>
         <div className="nav-container">
           <div className="icon">
@@ -53,16 +56,16 @@ function App() {
       <div>
       <Routes>
       <Route path="/" element={<Students user={user}/>} />
-      <Route path="api/me" element={<Profile user={user}/>} />
+      <Route path="api/me" element={<Profile user={user} />} />
       </Routes>
       </div>
     </div>
     <div>
       <Routes>
         <Route path="/timeline" element={<Timeline/>} />
-        <Route path="/network-page" element={<NetworkPage/>} />
+        <Route path="/network-page" element={<NetworkPage updateGraphPage={updateGraphPage} setUpdateGraphPage={setUpdateGraphPage}/>} />
         <Route path="/" element={<Home/>} />
-        <Route path="/profile" element={<Profile/>} />
+        <Route path="/profile" element={<Profile setUpdateGraphPage={setUpdateGraphPage}/>} />
       </Routes>
     </div>
     </div>

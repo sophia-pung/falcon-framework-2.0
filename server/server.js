@@ -36,7 +36,9 @@ app.post('/upload', function(req, res) {
 
   // The name of the input field (i.e. "sampleFile") is used to retrieve the uploaded file
   sampleFile = req.files.sampleFile;
-  uploadPath = __dirname + sampleFile.name;
+  uploadPath = __dirname + '/../client/public/uploads/' + sampleFile.name;
+  console.log("dirname", __dirname)
+  console.log("upload path", uploadPath)
 
   // Use the mv() method to place the file somewhere on your server
   sampleFile.mv(uploadPath, function(err) {
@@ -46,6 +48,13 @@ app.post('/upload', function(req, res) {
     res.send('File uploaded!');
   });
 });
+
+
+app.use('/static', express.static('public'))
+app.get('/static/uploads', (req, res) => {
+  console.log("RES", res)
+  res.sendFile(res)
+})
 
 const getImageData = (params) => {
   return new Promise((resolve, reject) => {

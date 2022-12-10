@@ -47,7 +47,7 @@ function randomColor() {
   return `#${red}${green}${blue}`;
 }
 
-const GraphvisPage = (resumeData) => {
+const GraphvisPage = ({updateGraphPage, setUpdateGraphPage}) => {
   const createNode = (x, y) => {
     const color = randomColor();
     setState(({ graph: { nodes, edges }, counter, ...rest }) => {
@@ -67,6 +67,10 @@ const GraphvisPage = (resumeData) => {
       };
     });
   };
+  if (updateGraphPage) {
+    console.log("test function");
+    setUpdateGraphPage(false)
+  }
 
   function updateNodes() {
     console.log("hereeeeee");
@@ -179,6 +183,62 @@ const GraphvisPage = (resumeData) => {
           image:
             "https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/1200px-Google_%22G%22_Logo.svg.png",
         },
+        {
+          id: 8,
+          label: "",
+          shape: "image",
+          image:
+            "https://www.csbsju.edu/documents/CMS/Logos/SJUVert.jpg",
+        },
+        {
+          id: 9,
+          label: "",
+          shape: "image",
+          image:
+            "https://assets.nationbuilder.com/mplsbike/sites/48/meta_images/original/OurStreets_Stacked_WhiteText_GreenLine.png?1597099015",
+        },
+        {
+          id: 10,
+          label: "",
+          shape: "image",
+          image:
+            "https://images.squarespace-cdn.com/content/v1/5e2f62a39ac61f6cd2e27f61/1580164073854-BLY3LY49Q1PW633RF7B8/logo_0.png",
+        },
+        {
+          id: 11,
+          label: "",
+          shape: "image",
+          image:
+            "https://logos-download.com/wp-content/uploads/2016/11/Life_Time_Fitness_logo_logotype.png",
+        },
+        {
+          id: 12,
+          label: "",
+          shape: "image",
+          image:
+            "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9a/Target_logo.svg/1541px-Target_logo.svg.png",
+        },
+        {
+          id: 13,
+          label: "",
+          shape: "image",
+          image:
+            "https://upload.wikimedia.org/wikipedia/en/thumb/e/ef/LUwithShield-CMYK.svg/1200px-LUwithShield-CMYK.svg.png",
+        },
+        {
+          id: 14,
+          label: "",
+          shape: "image",
+          image:
+            "https://cmi.ucsd.edu/wp-content/uploads/2021/04/evonik-logo-dropped.png",
+        },
+        {
+          id: 15,
+          label: "",
+          shape: "image",
+          image:
+            "https://1000logos.net/wp-content/uploads/2021/09/Medtronic-Logo-1999.png",
+        },
       ],
       edges: [
         { from: 1, to: 2 },
@@ -187,6 +247,14 @@ const GraphvisPage = (resumeData) => {
         { from: 2, to: 5 },
         { from: 1, to: 6 },
         { from: 6, to: 7 },
+        { from: 1, to: 8 },
+        { from: 8, to: 9 },
+        { from: 9, to: 10 },
+        { from: 8, to: 11 },
+        { from: 11, to: 12 },
+        { from: 1, to: 13 },
+        { from: 13, to: 14 },
+        { from: 14, to: 15 },
       ],
     },
     events: {
@@ -227,7 +295,7 @@ const GraphvisPage = (resumeData) => {
   const key = uuidv4();
   return (
     <div>
-      {/* <button onClick={() => updateNodes()}>Test Network Render</button> */}
+      <button onClick={() => updateNodes()}>Test Network Render</button>
       <Graph
         key={key}
         graph={graph}

@@ -2424,7 +2424,6 @@ function getWorkplaces(data) {
     let education = data.data.education;
     let finalData = [];
     for (let i=0; i< education.length; i++) {
-        //
         let educationData = {workplace: "", category: "education", imageurl: ""};
         educationData.workplace = education[i].organization;
         //other function to fetch image url > save to backend
@@ -2587,24 +2586,24 @@ function Students(props) {
 
   const images = {};
 
-  // const loadImages = () => {
-  //   // A function to fetch the list of workpalces so that we can fetch the images
-  //   fetch("/api/images", {
-  //     method: "GET",
-  //   })
-  //     .then((response) => response.json())
-  //     .then((images) => {
-  //       const images.map
-  //       console.log(workplaces[0].workplace);
-  //     });
-  // };
+//   const loadImages = () => {
+//     // A function to fetch the list of workpalces so that we can fetch the images
+//     fetch("/api/images", {
+//       method: "GET",
+//     })
+//       .then((response) => response.json())
+//       .then((images) => {
+//         const images.map
+//         console.log(workplaces[0].workplace);
+//       });
+//   };
 
   useEffect(() => {
     loadStudents();
   }, []);
 
   function onSumbit () {
-    let url = "https://laverne.edu/careers/wp-content/uploads/sites/15/2010/12/Undergraduate-Student-Resume-Examples.pdf";
+    let url = "https://www.mediafire.com/view/tb0wmdsj50b23hd/testresume.png/file";
     //query parameter > still matches on resume bc doesn't read anything after "?"
     fetch(`/resume?url=${url}`, {
       method: "GET",
@@ -2669,10 +2668,10 @@ function Students(props) {
       {/* <h2> List of Workplaces </h2>
       <button onClick={onSumbit}>
         Resume Parser Test
-      </button>
+      </button>*/}
       <button onClick={() => sendWorkplaces(workplaceData)}>
         Workplace Table Update Test
-      </button> */}
+      </button> 
       <ul>
         {students.map((student) => {
           if (student.id === editStudentId) {

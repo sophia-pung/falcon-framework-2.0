@@ -1,8 +1,10 @@
 const express = require("express");
 const cors = require("cors");
+const fileUpload = require('express-fileupload');
 require("dotenv").config();
 const path = require("path");
 const db = require("./db/db-connection.js");
+const app = express();
 
 const SerpApi = require("google-search-results-nodejs");
 const search = new SerpApi.GoogleSearch(process.env.REACT_APP_SECRET_API_KEY);
@@ -20,6 +22,39 @@ const util = require("util");
 //     reject(e)
 //   }
 // }
+app.use(fileUpload());
+
+app.post('/upload', function(req, res) {
+  let sampleFile;
+  let uploadPath;
+
+  if (!req.files || Object.keys(req.files).length === 0) {
+    return res.status(400).send('No files were uploaded.');
+  }
+
+  console.log("req files", req.files);
+
+  // The name of the input field (i.e. "sampleFile") is used to retrieve the uploaded file
+  sampleFile = req.files.sampleFile;
+  uploadPath = __dirname + '/../client/public/uploads/' + sampleFile.name;
+  console.log("dirname", __dirname)
+  console.log("upload path", uploadPath)
+
+  // Use the mv() method to place the file somewhere on your server
+  sampleFile.mv(uploadPath, function(err) {
+    if (err)
+      return res.status(500).send(err);
+
+    res.send('File uploaded!');
+  });
+});
+
+
+app.use('/static', express.static('public'))
+app.get('/static/uploads', (req, res) => {
+  console.log("RES", res)
+  res.sendFile(res)
+})
 
 const getImageData = (params) => {
   return new Promise((resolve, reject) => {
@@ -32,16 +67,15 @@ const getImageData = (params) => {
 };
 
 const { AffindaCredential, AffindaAPI } = require("@affinda/affinda");
-const fs = require("fs");
 const credential = new AffindaCredential(process.env.API_KEY);
 const client = new AffindaAPI(credential);
 
-const app = express();
 const REACT_BUILD_DIR = path.join(__dirname, "..", "client", "build");
 
 app.use(express.static(REACT_BUILD_DIR));
 
 const PORT = process.env.PORT || 8080;
+console.log("post", PORT);
 app.use(cors());
 app.use(express.json());
 
@@ -53,42 +87,14 @@ app.get("/", (req, res) => {
 });
 
 app.get("/resume", (req, res) => {
-  // var myHeaders = new Headers();
-  // myHeaders.append("apikey", "QaOJEnB14qqPCkYDrIgN5DnbdLOoMyJ5");
   const url = req.query.url;
-  console.log("query parameters", req.query.url);
-  res.send("test");
-  // var requestOptions = {
-  //   method: 'GET',
-  //   redirect: 'follow',
-  //   headers: myHeaders
-  // };
-  // fetch(`https://api.apilayer.com/resume_parser/url?url=${url}`, requestOptions)
-  // .then(response => response.text())
-  /* THIS IS WHAT I'M USING
-  client.createResume({url}).then((result) => {
-    console.log("Returned data:");
-    console.dir(result)
-    res.send(result)
+  client.createResume({url: url}).then((result) => {
+    console.log("Returned data:", result);
+    res.send(result);
 }).catch((err) => {
     console.log("An error occurred:");
     console.error(err);
-})
-*/
-  // });
-  //   .then(result => res.send(result))
-  //   .catch(error => console.log('error', error));
-
-  // look at lines 32 - 36 like async await
-  // .then((valueFromThePromise) => {
-  // is going to return another promise
-  // will return the value of whatever YOU are returning in here
-  // return response.text()
-  // } )
-  // .then(result => console.log(result)) -> we are returning undefined because we have no return value
-  // and console.log returns undefined by default
-
-  //
+});
 });
 
 //pull workplace name, call the image API and then put the image back into the workplaces table

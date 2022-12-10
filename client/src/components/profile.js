@@ -1,11 +1,28 @@
 import React from "react";
 import "./profile.css";
+import { useState, useEffect } from "react";
+import GraphvisPage from "./graphVis";
 
-const Profile = () => {
-  // var isAdvancedUpload = function() {
-  //   var div = document.createElement('div');
-  //   return (('draggable' in div) || ('ondragstart' in div && 'ondrop' in div)) && 'FormData' in window && 'FileReader' in window;
-  // }();
+const Profile = ({setUpdateGraphPage}) => {
+  const [resumeData, setResumeData] = useState('');
+
+  function onSubmit () {
+    setUpdateGraphPage(true);
+    let url = "";
+    console.log("RESUMEDATA");
+    //query parameter > still matches on resume bc doesn't read anything after "?"
+    // fetch(`/resume?url=${url}`, {
+    //   method: "GET",
+    // })
+    //     //data comes in as string, gets converted to json object 
+    //     .then((response) => response.json())
+    //     .then(data => {
+    //         console.log("data", data)
+    //         //sets outfits as the JSON data by replacing the empty array
+    //         //changes value from null to new value, after setting it, it triggers a re-render
+    //         setResumeData(data);
+    //     })
+  };
   
   // let draggableFileArea = document.querySelector(".drag-file-area");
   // let browseFileText = document.querySelector(".browse-files");
@@ -119,7 +136,16 @@ const Profile = () => {
 		<div class="drag-file-area">
 			<span id="material" class="material-icons-outlined upload-icon"> Resume Upload </span>
 			<h3 class="dynamic-message"> Drag & drop file here </h3>
-			<label class="label"> or <span class="browse-files"> <input type="file" class="default-file-input"/> <span class="browse-files-text">browse file</span> <span>from device</span> </span> </label>
+			<label class="label"> or <span class="browse-files"> <input type="file" class="default-file-input"/> 
+        <form 
+      id='uploadForm' 
+      action='/upload' 
+      method='post' 
+      encType="multipart/form-data">
+          <input type="file" name="sampleFile" />
+          <input type='submit' value='Upload!' /> 
+        </form> 
+        <span class="browse-files-text">browse file</span> <span>from device</span> </span> </label>
 		</div>
 		<span class="cannot-upload-message"> <span class="material-icons-outlined">error</span> Please select a file first <span class="material-icons-outlined cancel-alert-button">cancel</span> </span>
 		<div class="file-block">
@@ -127,7 +153,7 @@ const Profile = () => {
 			<span class="material-icons remove-file-icon">delete</span>
 			<div class="progress-bar"> </div>
 		</div>
-		<button type="button" class="upload-button"> Upload </button>
+		<button onClick={onSubmit} type="button" class="upload-button"> Upload </button>
 	</div>
 </form>
 </div>

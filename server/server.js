@@ -50,11 +50,12 @@ app.post('/upload', function(req, res) {
 });
 
 
-app.use('/static', express.static('public'))
-app.get('/static/uploads', (req, res) => {
-  console.log("RES", res)
-  res.sendFile(res)
-})
+app.use('/uploads', express.static(__dirname + '/../client/public/uploads/'))
+console.log("NAME", __dirname + '/../client/public/uploads/')
+// app.get('/static/uploads', (req, res) => {
+//   console.log("RES", res)
+//   res.sendFile(res)
+// })
 
 const getImageData = (params) => {
   return new Promise((resolve, reject) => {

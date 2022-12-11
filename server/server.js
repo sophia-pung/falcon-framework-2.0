@@ -50,11 +50,12 @@ app.post('/upload', function(req, res) {
 });
 
 
-app.use('/static', express.static('public'))
-app.get('/static/uploads', (req, res) => {
-  console.log("RES", res)
-  res.sendFile(res)
-})
+app.use('/uploads', express.static(__dirname + '/../client/public/uploads/'))
+console.log("NAME", __dirname + '/../client/public/uploads/')
+// app.get('/static/uploads', (req, res) => {
+//   console.log("RES", res)
+//   res.sendFile(res)
+// })
 
 const getImageData = (params) => {
   return new Promise((resolve, reject) => {
@@ -74,7 +75,11 @@ const REACT_BUILD_DIR = path.join(__dirname, "..", "client", "build");
 
 app.use(express.static(REACT_BUILD_DIR));
 
-const PORT = process.env.PORT || 8080;
+let PORT = process.env.PORT;
+if (PORT == null || PORT == "") {
+  PORT = 8000;
+}
+app.listen(port);
 console.log("post", PORT);
 app.use(cors());
 app.use(express.json());

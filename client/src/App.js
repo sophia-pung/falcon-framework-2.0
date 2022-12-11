@@ -32,13 +32,13 @@ function App() {
       <nav>
         <div className="nav-container">
           <div className="icon">
-            <Link className="profile" href="/profile">
+            <Link className="profile" to="/profile">
               <img width="50px" src={profile} />
             </Link>
-            <Link className="network" href="/network-page">
+            <Link className="network" to="/network-page">
               <img width="50px" src={network} />
             </Link>
-            <Link className="timeline" href="/timeline">
+            <Link className="timeline" to="/timeline">
               <img width="50px" src={timeline} />
             </Link>
           </div>

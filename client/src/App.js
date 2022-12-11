@@ -32,21 +32,21 @@ function App() {
       <nav>
         <div className="nav-container">
           <div className="icon">
-            <a className="profile" href="http://localhost:3000/profile">
+            <Link className="profile" href="/profile">
               <img width="50px" src={profile} />
-            </a>
-            <a className="network" href="http://localhost:3000/network-page">
+            </Link>
+            <Link className="network" href="/network-page">
               <img width="50px" src={network} />
-            </a>
-            <a className="timeline" href="http://localhost:3000/timeline">
+            </Link>
+            <Link className="timeline" href="/timeline">
               <img width="50px" src={timeline} />
-            </a>
+            </Link>
           </div>
-          {/* <div classNmae="login-box">
+          {/* <div classNmae="login-box">1
             <Signup />
           </div> */}
           <div className="title-text">
-            <a href="http://localhost:3000">FALCON FRAMEWORK</a>
+            <Link href="/">FALCON FRAMEWORK</Link>
           </div>
           <AuthenticationButton />
         </div>

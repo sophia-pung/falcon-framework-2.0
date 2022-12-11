@@ -79,8 +79,8 @@ let PORT = process.env.PORT;
 if (PORT == null || PORT == "") {
   PORT = 8000;
 }
-app.listen(port);
-console.log("post", PORT);
+app.listen(PORT);
+console.log("port", PORT);
 app.use(cors());
 app.use(express.json());
 

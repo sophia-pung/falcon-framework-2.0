@@ -86,7 +86,7 @@ npm install
    ```js
    const API_KEY = 'ENTER YOUR API';
    ```
-5. Go to the cliente folder (`cd .. and cd client`) and run the command `npm install`
+5. Go to the client folder (`cd .. and cd client`) and run the command `npm install`
 6. Both server should run now with `npm start`
 7. Go to localhost:3000 and you should see something like this
 

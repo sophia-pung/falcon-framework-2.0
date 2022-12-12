@@ -78,7 +78,6 @@ const GraphvisPage = ({ updateGraphPage, setUpdateGraphPage }) => {
   }
 
   function updateNodes() {
-    console.log("hereeeeee");
     fetch(PORT + "/db/nodes", {
       method: "GET",
     })
@@ -87,6 +86,7 @@ const GraphvisPage = ({ updateGraphPage, setUpdateGraphPage }) => {
         console.log("DATA", data);
         // returns an array (new_nodes) with id, label, shape, and image for each node
         const new_nodes = data.map((workplace) => {
+          //for in loop to remove duplicate names
           return {
             id: workplace.workplace_id,
             label: workplace.workplace,
@@ -98,7 +98,7 @@ const GraphvisPage = ({ updateGraphPage, setUpdateGraphPage }) => {
         //sort nodes in order before creating the new_edges array
         function sortNodes(nodesArray){
           let checker = 0; 
-          for(let i=0; i<nodesArray.length;i++){
+          for(let i=0; i<(nodesArray.length-1);i++){
             console.log(nodesArray[i])
             if (nodesArray[i].id>nodesArray[i+1].id) {
               checker += 1; 

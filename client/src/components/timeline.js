@@ -27,14 +27,26 @@ function Timeline() {
   //         setIsLoggedIn(true);
   //     }
   //   })
-  return (
-    <div class="object">
-      <div class="object-rope"></div>
-      <div class="object-shape">
-        Coming <span class="soon">Soon</span>
-      </div>
-    </div>
-  );
-}
+    return (
+      <div></div>
+      // <div className='UserCard'>
+      //   <div className='UserCardTop'>
+      //     <img src={pic} />
+      //   </div>
+      //   <div className='UserCardBottom'>
+      //     <h3>{name}</h3>
+      //     <p>email</p>
+      //     <h5>{email}</h5>
+      //     <p>username</p>
+      //     <h5>{username}</h5>
+      //   </div>
+      // </div>
+      // {
+      //   nodes.map((node, index) => (
+      //     <User key={index} name={user.name} email={user.email} pic={user.pic} username={user.username} />
+      //   ))
+      // }
+    );
+  };
 
 export default Timeline;

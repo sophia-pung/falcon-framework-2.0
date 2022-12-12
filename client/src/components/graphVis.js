@@ -47,10 +47,10 @@ function randomColor() {
   return `#${red}${green}${blue}`;
 }
 
-const GraphvisPage = ({updateGraphPage, setUpdateGraphPage}) => {
+const GraphvisPage = ({ updateGraphPage, setUpdateGraphPage }) => {
   const createNode = (x, y) => {
     const color = randomColor();
-    setState(({ graph: { nodes, edges }, counter, ...rest }) => {
+    setNetworkGraph(({ graph: { nodes, edges }, counter, ...rest }) => {
       const id = counter + 1;
       const from = 3; //Math.floor(Math.random() * (counter - 1)) + 1;
       const newNodes = [...nodes, { id, label: `Node ${id}`, color, x, y }];
@@ -69,18 +69,23 @@ const GraphvisPage = ({updateGraphPage, setUpdateGraphPage}) => {
   };
   if (updateGraphPage) {
     console.log("test function");
-    setUpdateGraphPage(false)
+    setUpdateGraphPage(false);
+  }
+
+  let PORT = process.env.PORT;
+  if (!PORT) {
+    PORT = "http://localhost:8000"
   }
 
   function updateNodes() {
     console.log("hereeeeee");
-    fetch("/db/nodes", {
+    fetch(PORT + "/db/nodes", {
       method: "GET",
     })
       .then((response) => response.json())
       .then((data) => {
         console.log("DATA", data);
-        // do the transform
+        // returns an array (new_nodes) with id, label, shape, and image for each node
         const new_nodes = data.map((workplace) => {
           return {
             id: workplace.workplace_id,
@@ -90,47 +95,74 @@ const GraphvisPage = ({updateGraphPage, setUpdateGraphPage}) => {
           };
         });
 
+        //sort nodes in order before creating the new_edges array
+        function sortNodes(nodesArray){
+          let checker = 0; 
+          for(let i=0; i<nodesArray.length;i++){
+            console.log(nodesArray[i])
+            if (nodesArray[i].id>nodesArray[i+1].id) {
+              checker += 1; 
+              let m = nodesArray[i];
+              let k = nodesArray[i+1];
+              nodesArray[i] = k;
+              nodesArray[i+1] = m;
+            }
+          }
+          if (checker != 0) {
+            checker = 0; 
+            return sortNodes(nodesArray);
+          } else {
+            return nodesArray;
+          }
+        };
+
+        sortNodes(new_nodes);
+
+        // returns an array (new_edges) of objects {last edge, this edge} for each workplace
+        //we want to start the first edge at Armstrong High School (edge 1) always, and build our chain from there
         let last_edge_id = null;
-        const new_edges = data.map((workplace) => {
-          const this_edge_id = workplace.workplace_id;
-          if (!!last_edge_id) {
+        const new_edges = new_nodes.map((node) => {
+          //console.log("new_edge", new_edges)
+          const this_edge_id = node.id;
+          if (!!last_edge_id && node.label !== "Armstrong High School") {
             // if last_edge not null
-            const edge ={
+            const edge = {
               from: last_edge_id,
               to: this_edge_id,
             };
             last_edge_id = this_edge_id;
-            return edge 
+            return edge;
           } else {
-            const edge ={
-              from: this_edge_id, // will this work????? self-reference?
+            const edge = {
+              from: last_edge_id, // will this work????? self-reference?
               to: this_edge_id,
             };
             last_edge_id = this_edge_id;
-            return edge 
+            return edge;
           }
         });
 
-        const graph = state.graph;
+        const graph = networkGraph.graph;
         const nodes = graph.nodes;
         const edges = graph.edges;
 
-        const all_nodes = (new_nodes);
-        const all_edges = (new_edges);
+        const all_nodes = new_nodes;
+        const all_edges = new_edges;
 
+        // creates a new_graph with the previous nodes plus the new nodes and their edges
         const new_graph = { ...graph, nodes: all_nodes, edges: all_edges };
-        const new_state = { ...state, graph: new_graph };
+        const new_network_graph = { ...networkGraph, graph: new_graph };
 
-        console.log("<<<<< OLD STATE", state);
-        console.log(">>>>> NEW STATE", new_state);
+        console.log("<<<<< OLD STATE", networkGraph);
+        console.log(">>>>> NEW STATE", new_network_graph);
 
-        setState(new_state);
+        setNetworkGraph(new_network_graph);
       })
       .catch((error) => {
         console.log(error);
       });
   }
-  const [state, setState] = useState({
+  const [networkGraph, setNetworkGraph] = useState({
     counter: 5,
     graph: {
       nodes: [
@@ -187,8 +219,7 @@ const GraphvisPage = ({updateGraphPage, setUpdateGraphPage}) => {
           id: 8,
           label: "",
           shape: "image",
-          image:
-            "https://www.csbsju.edu/documents/CMS/Logos/SJUVert.jpg",
+          image: "https://www.csbsju.edu/documents/CMS/Logos/SJUVert.jpg",
         },
         {
           id: 9,
@@ -288,8 +319,8 @@ const GraphvisPage = ({updateGraphPage, setUpdateGraphPage}) => {
   //the images should have a different object which will paste in the image url for them
   //nodes should use the image object to render using a map function
 
-  console.log("testnode", checkId(state));
-  const { graph, events } = state;
+  console.log("testnode", checkId(networkGraph));
+  const { graph, events } = networkGraph;
   //the key is a workaround for react strict mode
   //uuidv4 generates a unique string everytime the react component is rendered
   const key = uuidv4();

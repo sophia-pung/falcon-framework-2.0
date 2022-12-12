@@ -18,6 +18,11 @@ import profile from "./icons/profile.svg";
 import AuthenticationButton from "./components/authentication-button";
 import { useState } from 'react';
 
+let PORT = process.env.PORT;
+if (!PORT) {
+  PORT = "http://localhost:3000"
+}
+
 function App() {
   const { isLoading } = useAuth0();
   const { user } = useAuth0();
@@ -32,13 +37,13 @@ function App() {
       <nav>
         <div className="nav-container">
           <div className="icon">
-            <Link className="profile" to="/profile">
+            <Link className="profile" to={PORT + "/profile"}>
               <img width="50px" src={profile} />
             </Link>
-            <Link className="network" to="/network-page">
+            <Link className="network" to={PORT + "/network-page"}>
               <img width="50px" src={network} />
             </Link>
-            <Link className="timeline" to="/timeline">
+            <Link className="timeline" to={PORT + "/timeline"}>
               <img width="50px" src={timeline} />
             </Link>
           </div>
@@ -46,7 +51,7 @@ function App() {
             <Signup />
           </div> */}
           <div className="title-text">
-            <Link href="/">FALCON FRAMEWORK</Link>
+            <Link to={PORT + "/"}>FALCON FRAMEWORK</Link>
           </div>
           <AuthenticationButton />
         </div>
@@ -55,17 +60,17 @@ function App() {
         {/* <BackgroundGrid /> */}
       <div>
       <Routes>
-      <Route path="/" element={<Students user={user}/>} />
-      <Route path="api/me" element={<Profile user={user} />} />
+      <Route path={PORT + "/"} element={<Students user={user}/>} />
+      <Route path={PORT + "api/me"} element={<Profile user={user} />} />
       </Routes>
       </div>
     </div>
     <div>
       <Routes>
-        <Route path="/timeline" element={<Timeline/>} />
-        <Route path="/network-page" element={<NetworkPage updateGraphPage={updateGraphPage} setUpdateGraphPage={setUpdateGraphPage}/>} />
-        <Route path="/" element={<Home/>} />
-        <Route path="/profile" element={<Profile setUpdateGraphPage={setUpdateGraphPage}/>} />
+        <Route path={PORT + "/timeline"} element={<Timeline/>} />
+        <Route path={PORT + "/network-page"} element={<NetworkPage updateGraphPage={updateGraphPage} setUpdateGraphPage={setUpdateGraphPage}/>} />
+        <Route path={PORT + "/"} element={<Home/>} />
+        <Route path={PORT + "/profile"} element={<Profile setUpdateGraphPage={setUpdateGraphPage}/>} />
       </Routes>
     </div>
     </div>

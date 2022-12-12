@@ -114,6 +114,7 @@ app.get("/api/images", cors(), async (req, res) => {
 
 // create the get request
 app.get("/api/students", cors(), async (req, res) => {
+  console.log("HERE")
   // const STUDENTS = [
 
   //     { id: 1, firstName: 'Lisa', lastName: 'Lee' },
@@ -134,8 +135,11 @@ app.get("/api/students", cors(), async (req, res) => {
 });
 
 app.get("/db/nodes", cors(), async (req, res) => {
+  console.log("HEREE")
   try {
     const { rows: workplaces } = await db.query("SELECT * FROM workplaces");
+    console.log("here")
+    console.log(workplaces)
     res.send(workplaces);
   } catch (e) {
     return res.status(400).json({ e });

@@ -50,13 +50,24 @@
 
 The Falcon Framework was created to help students see what careers people with a similar background to them took. It allows them to visualize what paths working professionals took who started at the same place that they did. It was built to show students what's possible, and how they can get from point A to point B, by seeing the paths that others took. The project parses resume data to then identify the workplaces and educational institutions of the user. It then receives the resume data back as a JSON object, calls the image API to load images into the workplace and education objects, and sends these back to the frontend so that they can be rendered as nodes.
 
+In this project, the react-graph-vis framework can be used to take this set of resumes:
+<p align="center">
+    <img width="1000" src="https://github.com/sophia-pung/falcon-framework-2.0/blob/main/client/public/images/sampleresumes.png" alt="localhost">
+</p>
+and render them in a network graph such as this one: 
+<p align="center">
+    <img width="1000" src="https://github.com/sophia-pung/falcon-framework-2.0/blob/main/client/public/images/networkgraph.png" alt="localhost">
+</p>
+
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ### Architecture
 
 The project's architecture is mostly composed of queries and functions in the `server.js` file. After a resume is uploaded, the `getWorkplaces` is called that takes in a data object returned by the resume parser API as an input. The function extracts data from the education and `workExperience` properties of the data object, creates new objects for each education and work experience, and adds them to an array called `finalData`. The function then returns the finalData array. The function also includes a nested function called `ImageSearch` that takes in a `workplaceList` as an input and adds an imageurl property to each object in the list by using a Google Image search. The `ImageSearch` function then saves the workplace information to a database using the workplace, category, and imageurl properties of the workplace objects. The `seedWorkplaces` function calls the getWorkplaces function and passes the returned data to the `ImageSearch` function.
 
-
+<p align="center">
+    <img width="1000" src="https://github.com/sophia-pung/falcon-framework-2.0/blob/main/client/public/images/databaseschema.png" alt="localhost">
+</p>
 
 ### Built With
 
@@ -67,6 +78,7 @@ The project's architecture is mostly composed of queries and functions in the `s
 * [![react-graph-vis][react-graph-vis]][react-graph-vis-url]
 * [![express-fileupload][express-fileupload]][express-fileupload-url]
 * [![Git][Git]][Git-url]
+* [![auth0][auth0]][auth0-url]
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -132,3 +144,5 @@ npm -v
 [express-fileupload-url]: https://www.npmjs.com/package/express-fileupload
 [Git]: https://img.shields.io/badge/Git-0769AD?style=for-the-badge&logo=git&logoColor=white
 [Git-url]: https://git-scm.com/
+[Auth0]: https://img.shields.io/badge/Auth0-0769AD?style=for-the-badge&logo=auth0&logoColor=white
+[auth0-url]: https://auth0.com/

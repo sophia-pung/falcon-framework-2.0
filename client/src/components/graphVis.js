@@ -143,8 +143,6 @@ const GraphvisPage = ({ updateGraphPage, setUpdateGraphPage }) => {
         });
 
         const graph = networkGraph.graph;
-        const nodes = graph.nodes;
-        const edges = graph.edges;
 
         const all_nodes = new_nodes;
         const all_edges = new_edges;
@@ -301,25 +299,7 @@ const GraphvisPage = ({ updateGraphPage, setUpdateGraphPage }) => {
       },
     },
   });
-  function checkId(state) {
-    const nodes = state.graph.nodes;
-    let nextId = "";
-    for (let i = 0; i < state.graph.nodes.length; i++) {
-      for (let j = 0; j < state.graph.nodes.length; j++) {
-        console.log("nodeId", nodes[i].id);
-        console.log("#", j);
-      }
-    }
-  }
 
-  //goal: generate unique id's for nodes
-  //I'm not responsible for this... I should query the database, not build this in myself
-  //the database should update the state
-  //the state should render
-  //the images should have a different object which will paste in the image url for them
-  //nodes should use the image object to render using a map function
-
-  console.log("testnode", checkId(networkGraph));
   const { graph, events } = networkGraph;
   //the key is a workaround for react strict mode
   //uuidv4 generates a unique string everytime the react component is rendered

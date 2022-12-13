@@ -139,7 +139,7 @@ const Profile = ({setUpdateGraphPage}) => {
 			<label class="label"> or <span class="browse-files"> <input type="file" class="default-file-input"/> 
         <form 
       id='uploadForm' 
-      action='http://localhost:8000/upload' 
+      action='/upload' 
       method='post' 
       encType="multipart/form-data">
           <input type="file" name="sampleFile" />

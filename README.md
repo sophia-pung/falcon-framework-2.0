@@ -56,6 +56,8 @@ The Falcon Framework was created to help students see what careers people with a
 
 The project's architecture is mostly composed of queries and functions in the `server.js` file. After a resume is uploaded, the `getWorkplaces` is called that takes in a data object returned by the resume parser API as an input. The function extracts data from the education and `workExperience` properties of the data object, creates new objects for each education and work experience, and adds them to an array called `finalData`. The function then returns the finalData array. The function also includes a nested function called `ImageSearch` that takes in a `workplaceList` as an input and adds an imageurl property to each object in the list by using a Google Image search. The `ImageSearch` function then saves the workplace information to a database using the workplace, category, and imageurl properties of the workplace objects. The `seedWorkplaces` function calls the getWorkplaces function and passes the returned data to the `ImageSearch` function.
 
+
+
 ### Built With
 
 * [![Node.js][Node.js]][Node-url]
@@ -111,6 +113,9 @@ npm -v
 6. Go to the client folder (`cd .. and cd client`) and run the command `npm install`
 7. Both server should run now with `npm start`
 8. Go to localhost:3000 and you should see something like this:
+<p align="center">
+    <img width="1000" src="https://github.com/sophia-pung/falcon-framework-2.0/blob/main/client/public/images/localhost.png" alt="localhost">
+</p>
 
 
 [Node.js]: https://img.shields.io/badge/Node.js-20232A?style=for-the-badge&logo=nodejs&logoColor=61DAFB

@@ -2254,6 +2254,8 @@ const testData = {
   },
 };
 
+//getWorkplaces function parses JSON data for workplaces
+//could do it in backend, could copy in front end where form is submitted > call these functions and pass in data I got back
 function getWorkplaces(data) {
   let education = data.data.education;
   let finalData = [];

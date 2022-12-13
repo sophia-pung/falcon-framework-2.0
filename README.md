@@ -15,7 +15,11 @@
   </p>
 </div>
 
+<p align="center">
+    <img width="1000" src="https://github.com/sophia-pung/falcon-framework-2.0/blob/main/client/public/images/demogif.gif" alt="Gameplay Preview">
+</p>
 
+Demonstration video: [link]()
 
 <!-- TABLE OF CONTENTS -->
 <details>

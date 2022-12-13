@@ -101,15 +101,16 @@ npm -v
    ```sh
    npm install
    ```
-4. Enter your API in `config.js`
+4. Enter your API in `.env`
    ```js
    const API_KEY = 'ENTER YOUR API';
    const REACT_APP_SECRET_API_KEY="ENTER SERPAPI API KEY"
 
    ```
-5. Go to the client folder (`cd .. and cd client`) and run the command `npm install`
-6. Both server should run now with `npm start`
-7. Go to localhost:3000 and you should see something like this:
+5. In profile.js change action: /upload to action: 'http://localhost8000:/upload' 
+6. Go to the client folder (`cd .. and cd client`) and run the command `npm install`
+7. Both server should run now with `npm start`
+8. Go to localhost:3000 and you should see something like this:
 
 
 [Node.js]: https://img.shields.io/badge/Node.js-20232A?style=for-the-badge&logo=nodejs&logoColor=61DAFB

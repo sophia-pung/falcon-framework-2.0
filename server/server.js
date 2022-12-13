@@ -82,7 +82,7 @@ const seedWorkplaces = async (req, res) => {
   // Show result as JSON
   console.log(req.body);
   console.log("END");
-  res.send("we did it");
+  res.redirect('/#/network-page'); ?
   // const newWorkplace = {
   //   workplace: req.body.family_name || "",
   //   firstname: req.body.given_name || "",

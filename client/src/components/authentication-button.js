@@ -5,9 +5,13 @@ import LogoutButton from './logout-button';
 import { useEffect } from 'react';
 import { useAuth0 } from '@auth0/auth0-react';
 
+let PORT = process.env.PORT;
+if (!PORT) {
+  PORT = "http://localhost:8000"
+}
 
 const saveUser = (user) => {
-    return fetch("http://localhost:8080/api/me", {
+    return fetch(PORT + "/api/me", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(user),
